@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Play - Tecnología a tu alcance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #00a8ff;       
+            --primary-dark: #0077c8;  
+            --dark-bg: #090c10;       
+            --card-bg: #161b22;       
+            --text-light: #f0f6fc;    
+            --text-muted: #8b949e;    
+            --whatsapp: #25d366;      
+            --instagram: #e1306c;     
+            --facebook: #1877f2;      
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* --- ENCABEZADO Y NAVEGACIÓN --- */
+        header {
+            background: rgba(9, 12, 16, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 75px;
+            width: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(0, 168, 255, 0.3));
+            transition: transform 0.3s;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .logo-slogan {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            display: block;
+            margin-top: -3px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            background: var(--card-bg);
+            padding: 10px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .cart-count {
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        /* --- MODAL DEL CARRITO --- */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-modal-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--primary);
+        }
+
+        /* --- BANNER PRINCIPAL --- */
+        .hero {
+            padding: 80px 5% 60px;
+            text-align: center;
+            background: radial-gradient(circle at center, #161b22 0%, var(--dark-bg) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero-slogan {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 0 auto 30px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 168, 255, 0.3);
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            color: #ffffff;
+        }
+
+        .btn-whatsapp:hover {
+            background: #1eb954;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* --- SECCIÓN DE BENEFICIOS --- */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 35px 5%;
+            background: #0d1117;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-box {
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 250px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .feature-text h4 {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .feature-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* --- FILTROS DE CATEGORÍA --- */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 168, 255, 0.3);
+        }
+
+        /* --- CATÁLOGO DE PRODUCTOS --- */
+        .products-section {
+            padding: 50px 5% 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.15);
+        }
+
+        .card-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .product-badge {
+            background: rgba(0, 168, 255, 0.15);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .price-tag {
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 168, 255, 0.4);
+        }
+
+        .stock-tag {
+            font-size: 0.75rem;
+            color: #25d366;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stock-dot {
+            width: 8px;
+            height: 8px;
+            background: #25d366;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .gallery-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-main-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #0d1117;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .thumb-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            background: #0d1117;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .thumb-img:hover, .thumb-img.active {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .product-price-main {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-card {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* --- PREGUNTAS FRECUENTES (FAQ) --- */
+        .faq-section {
+            background: #0d1117;
+            padding: 60px 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 30px auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* --- CONTACTO Y PIE DE PÁGINA --- */
+        .contact-section {
+            background: #090c10;
+            padding: 50px 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .contact-cards {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 25px 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            min-width: 220px;
+            flex: 1;
+            max-width: 280px;
+        }
+
+        .contact-card h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .contact-card a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links-footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .social-links-footer a:hover {
+            color: var(--primary);
+        }
+
+        footer {
+            background: #040608;
+            padding: 25px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .floating-whatsapp-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .whatsapp-label {
+            background: #161b22;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .floating-whatsapp {
+            background-color: var(--whatsapp);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .logo-img { height: 55px; }
+            .whatsapp-label { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado / Navegación -->
+    <header>
+        <a href="#" class="logo-container">
+            <img src="logo.jpeg" alt="Digital Play Logo" class="logo-img" onerror="this.onerror=null; this.src='logo.jpeg.jpeg';">
+            <div>
+                <div class="logo-text">DIGITAL <span>PLAY</span></div>
+                <span class="logo-slogan">Tecnología a tu alcance</span>
+            </div>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#faq">Preguntas Frecuentes</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <div class="cart-icon" onclick="abrirCarrito()">
+                🛒 Carrito <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Modal del Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <span class="close-modal" onclick="cerrarCarrito()">&times;</span>
+            <h3 style="margin-bottom: 20px; color: var(--primary);">Tu Carrito de Compras</h3>
+            <div id="cartItemsContainer">
+                <!-- Se llena dinámicamente -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalAmount">$0 COP</span>
+            </div>
+            <button class="btn btn-whatsapp btn-card" style="margin-top: 20px;" onclick="enviarPedidoCompletoWhatsApp()">
+                💬 Finalizar Pedido por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Banner Principal -->
+    <section class="hero" id="inicio">
+        <h1>DIGITAL <span>PLAY</span></h1>
+        <div class="hero-slogan">Tecnología a tu alcance</div>
+        <p>Tu tienda de confianza para encontrar los mejores smartphones, consolas de videojuegos y tecnología.</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="#productos" class="btn">Ver Catálogo</a>
+            <a href="https://wa.me/573243964629?text=Hola%20Digital%20Play,%20quisiera%20recibir%20información" target="_blank" class="btn btn-whatsapp">Contactar por WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Sección de Beneficios -->
+    <section class="features">
+        <div class="feature-box">
+            <div class="feature-icon">🚀</div>
+            <div class="feature-text">
+                <h4>Envíos Rápidos</h4>
+                <p>Envíos seguros a todo el país</p>
+            </div>
+        </div>
+        <div class="feature-box">
+            <div class="feature-icon">🛡️</div>
+            <div class="feature-text">
+                <h4>Productos Garantizados</h4>
+                <p>Calidad y garantía 100% real</p>
+            </div>
+        </div>
+        <div class="feature-box">
+            <div class="feature-icon">💬</div>
+            <div class="feature-text">
+                <h4>Atención Directa</h4>
+                <p>Asesoría personalizada por WhatsApp</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Productos -->
+    <section class="products-section" id="productos">
+        <h2 class="section-title">Nuestros <span>Productos</span></h2>
+        
+        <!-- Filtros de Categorías -->
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filtrarProductos('todos', this)">Todos</button>
+            <button class="filter-btn" onclick="filtrarProductos('apple', this)">Apple</button>
+            <button class="filter-btn" onclick="filtrarProductos('samsung', this)">Samsung</button>
+            <button class="filter-btn" onclick="filtrarProductos('consolas', this)">Consolas & Accesorios</button>
+        </div>
+
+        <div class="products-grid">
+
+            <!-- 1. IPHONE 18 PRO MAX -->
+            <div class="product-card" data-category="apple">
+                <div class="card-header-info">
+                    <span class="product-badge">Último Lanzamiento</span>
+                    <span class="price-tag">$4.499.900</span>
+                </div>
+                <div class="stock-tag"><span class="stock-dot"></span> Nuevo en Caja Sellada (256GB Glacier)</div>
+                <div class="gallery-container">
+                    <img id="mainImgI18" src="WhatsApp Image 2026-10-22 at 5.59.19 PM.jpeg" alt="iPhone 18 Pro Max" class="product-main-img" onerror="this.onerror=null; this.src='18.jpeg';">
+                    <div class="gallery-thumbs">
+                        <img src="WhatsApp Image 2026-10-22 at 5.59.19 PM.jpeg" alt="iPhone 18 Pro Max Frontal Caja" class="thumb-img active" onclick="cambiarImagen('mainImgI18', this.src)" onerror="this.onerror=null; this.src='18.jpeg';">
+                        <img src="18.jpeg" alt="iPhone 18 Pro Max Trasero Caja" class="thumb-img" onclick="cambiarImagen('mainImgI18', this.src)">
+                    </div>
+                </div>
+                <h3 class="product-title">iPhone 18 Pro Max (256GB)</h3>
+                <p class="product-desc">Edición Glacier con empaque original, cable USB-C de carga rápida y soporte eSIM. Modelo A3473.</p>
+                <div class="product-price-main">
+                    <span>Precio:</span>
+                    <span>$4.499.900 COP</span>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-card" onclick="agregarAlCarrito('iPhone 18 Pro Max (256GB)', 4499900)">🛒 Agregar al Carrito</button>
+                    <button class="btn btn-whatsapp btn-card" onclick="comprarDirectoWhatsApp('iPhone 18 Pro Max (256GB)', 4499900)">💬 Comprar por WhatsApp</button>
+                </div>
+            </div>
+
+            <!-- 2. IPHONE 17 PRO MAX -->
+            <div class="product-card" data-category="apple">
+                <div class="card-header-info">
+                    <span class="product-badge">Nuevos Modelos</span>
+                    <span class="price-tag">$3.599.900</span>
+                </div>
+                <div class="stock-tag"><span class="stock-dot"></span> Disponible en varios colores (Caja Sellada)</div>
+                <div class="gallery-container">
+                    <img id="mainImgI17" src="17.jpeg" alt="iPhone 17 Pro Max" class="product-main-img" onerror="this.onerror=null; this.src='WhatsApp Image 2026-10-24 at 4.38.27 PM.jpeg';">
+                    <div class="gallery-thumbs">
+                        <img src="17.jpeg" alt="iPhone 17 Pro Max Naranja" class="thumb-img active" onclick="cambiarImagen('mainImgI17', this.src)">
+                        <img src="WhatsApp Image 2026-10-24 at 4.38.27 PM.jpeg" alt="iPhone 17 Pro Max Colores" class="thumb-img" onclick="cambiarImagen('mainImgI17', this.src)">
+                    </div>
+                </div>
+                <h3 class="product-title">iPhone 17 Pro Max</h3>
+                <p class="product-desc">Lo más nuevo de Apple con diseño renovado en acabado titanio/metal, módulo de cámaras avanzado y excelente rendimiento.</p>
+                <div class="product-price-main">
+                    <span>Precio:</span>
+                    <span>$3.599.900 COP</span>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-card" onclick="agregarAlCarrito('iPhone 17 Pro Max', 3599900)">🛒 Agregar al Carrito</button>
+                    <button class="btn btn-whatsapp btn-card" onclick="comprarDirectoWhatsApp('iPhone 17 Pro Max', 3599900)">💬 Comprar por WhatsApp</button>
+                </div>
+            </div>
+
+            <!-- 3. IPHONE 16 PRO MAX -->
+            <div class="product-card" data-category="apple">
+                <div class="card-header-info">
+                    <span class="product-badge">Top Gama Apple</span>
+                    <span class="price-tag">$2.999.900</span>
+                </div>
+                <div class="stock-tag"><span class="stock-dot"></span> Disponible en Inventario</div>
+                <div class="gallery-container">
+                    <img id="mainImgI16" src="16.jpeg" alt="iPhone 16 Pro Max" class="product-main-img" onerror="this.onerror=null; this.src='WhatsApp Image 2026-10-21 at 4.03.03 PM.jpeg';">
+                    <div class="gallery-thumbs">
+                        <img src="16.jpeg" alt="iPhone 16 Pro Max Borde" class="thumb-img active" onclick="cambiarImagen('mainImgI16', this.src)">
+                        <img src="WhatsApp Image 2026-10-21 at 4.03.03 PM.jpeg" alt="iPhone 16 Pro Max Trasero" class="thumb-img" onclick="cambiarImagen('mainImgI16', this.src)">
+                    </div>
+                </div>
+                <h3 class="product-title">iPhone 16 Pro Max</h3>
+                <p class="product-desc">Construcción en titanio de grado aeroespacial, botón de control de cámara dedicado, chip A18 Pro y la batería de mayor duración.</p>
+                <div class="product-price-main">
+                    <span>Precio:</span>
+                    <span>$2.999.900 COP</span>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-card" onclick="agregarAlCarrito('iPhone 16 Pro Max', 2999900)">🛒 Agregar al Carrito</button>
+                    <button class="btn btn-whatsapp btn-card" onclick="comprarDirectoWhatsApp('iPhone 16 Pro Max', 2999900)">💬 Comprar por WhatsApp</button>
+                </div>
+            </div>
+
+            <!-- 4. IPHONE 15 PRO MAX -->
+            <div class="product-card" data-category="apple">
+                <div class="card-header-info">
+                    <span class="product-badge">Titanium Series</span>
+                    <span class="price-tag">$2.299.900</span>
+                </div>
+                <div class="stock-tag"><span class="stock-dot"></span> Disponible en Inventario</div>
+                <div class="gallery-container">
+                    <img id="mainImgI15" src="WhatsApp Image 2026-10-21 at 4.09.59 PM.jpeg" alt="iPhone 15 Pro Max" class="product-main-img" onerror="this.onerror=null; this.src='15.jpeg';">
+                    <div class="gallery-thumbs">
+                        <img src="WhatsApp Image 2026-10-21 at 4.09.59 PM.jpeg" alt="iPhone 15 Pro Max Trasero" class="thumb-img active" onclick="cambiarImagen('mainImgI15', this.src)">
+                        <img src="15.jpeg" alt="iPhone 15 Pro Max Ángulo" class="thumb-img" onclick="cambiarImagen('mainImgI15', this.src)">
+                    </div>
+                </div>
+                <h3 class="product-title">iPhone 15 Pro Max</h3>
+                <p class="product-desc">Diseño en titanio ligero y resistente, chip A17 Pro, botón de Acción personalizable y teleobjetivo de 5x.</p>
+                <div class="product-price-main">
+                    <span>Precio:</span>
+                    <span>$2.299.900 COP</span>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-card" onclick="agregarAlCarrito('iPhone 15 Pro Max', 2299900)">🛒 Agregar al Carrito</button>
+                    <button class="btn btn-whatsapp btn-card" onclick="comprarDirectoWhatsApp('iPhone 15 Pro Max', 2299900)">💬 Comprar por WhatsApp</button>
+                </div>
+            </div>
+
+            <!-- 5. IPHONE 14 PRO MAX -->
+            <div class="product-card" data-category="apple">
+                <div class="card-header-info">
+                    <span class="product-badge">Apple Pro</span>
+                    <span class="price-tag">$1.699.900</span>
+                </div>
+                <div class="stock-tag"><span class="stock-dot"></span> Excelente Estado / Pantalla Always-On</div>
+                <div class="gallery-container">
+                    <img id="mainImgI14" src="14.jpeg" alt="iPhone 14 Pro Max" class="product-main-img" onerror="this.onerror=null; this.src='WhatsApp Image 2026-10-24 at 5.36.26 PM.jpeg';">
+                    <div class="gallery-thumbs">
+                        <img src="14.jpeg" alt="iPhone 14 Pro Max Pantalla" class="thumb-img active" onclick="cambiarImagen('mainImgI14', this.src)">
+                        <img src="WhatsApp Image 2026-10-24 at 5.36.26 PM.jpeg" alt="iPhone 14 Pro Max Trasero" class="thumb-img" onclick="cambiarImagen('mainImgI14', this.src)">
+                    </div>
+                </div>
+                <h3 class="product-title">iPhone 14 Pro Max</h3>
+                <p class="product-desc">Equipado con Dynamic Island, chip A16 Bionic, cámara principal de 48 MP y pantalla ProMotion de 120Hz.</p>
+                <div class="product-price-main">
+                    <span>Precio:</span>
+                    <span>$1.699.900 COP</span>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-card" onclick="agregarAlCarrito('iPhone 14 Pro Max', 1699900)">🛒 Agregar al Carrito</button>
+                    <button class="btn btn-whatsapp btn-card" onclick="comprarDirectoWhatsApp('iPhone 14 Pro Max', 1699900)">💬 Comprar por WhatsApp</button>
+                </div>
+            </div>
+
+            <!-- 6. IPHONE 13 PRO MAX -->
+            <div class="product-card" data-category="apple">
+                <div class="card-header-info">
+                    <span class="product-badge">Calidad / Precio Apple</span>
+                    <span class="price-tag">$1.499.990</span>
+                </div>
+                <div class="stock-tag"><span class="stock-dot"></span> Disponible en Inventario</div>
+                <div class="gallery-container">
+                    <img id="mainImgI13" src="WhatsApp Image 2026-10-21 at 4.05.44 PM.jpeg" alt="iPhone 13 Pro Max" class="product-main-img" onerror="this.onerror=null; this.src='13.jpeg';">
+                    <div class="gallery-thumbs">
+                        <img src="WhatsApp Image 2026-10-21 at 4.05.44 PM.jpeg" alt="iPhone 13 Pro Max Trasero" class="thumb-img active" onclick="cambiarImagen('mainImgI13', this.src)">
+                        <img src="13.jpeg" alt="iPhone 13 Pro Max Borde" class="thumb-img" onclick="cambiarImagen('mainImgI13', this.src)">
+                    </div>
+                </div>
+                <h3 class="product-title">iPhone 13 Pro Max</h3>
+                <p class="product-desc">Edición Azul Sierra con pantalla Super Retina XDR de 120Hz ProMotion, excelente autonomía de batería y cámara triple Pro.</p>
+                <div class="product-price-main">
+                    <span>Precio:</span>
+                    <span>$1.499.990 COP</span>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-card" onclick="agregarAlCarrito('iPhone 13 Pro Max', 1499990)">🛒 Agregar al Carrito</button>
+                    <button class="btn btn-whatsapp btn-card" onclick="comprarDirectoWhatsApp('iPhone 13 Pro Max', 1499990)">💬 Comprar por WhatsApp</button>
+                </div>
+            </div>
+
+            <!-- 7. SAMSUNG GALAXY S25 ULTRA -->
+            <div class="product-card" data-category="samsung">
+                <div class="card-header-info">
+                    <span class="product-badge">Última Generación</span>
+                    <span class="price-tag">$2.899.990</span>
+                </div>
+                <div class="stock-tag"><span class="stock-dot"></span> 12GB | 512GB - En Caja Sellada</div>
+                <div class="gallery-container">
+                    <img id="mainImgS25" src="WhatsApp Image 2026-10-24 at 5.44.50 PM.jpeg" alt="Samsung Galaxy S25 Ultra" class="product-main-img" onerror="this.onerror=null; this.src='s25-ultra-1.jpeg';">
+                    <div class="gallery-thumbs">
+                        <img src="WhatsApp Image 2026-10-24 at 5.44.50 PM.jpeg" alt="S25 Ultra Cajas" class="thumb-img active" onclick="cambiarImagen('mainImgS25', this.src)">
+                        <img src="s25-ultra-1.jpeg" alt="S25 Ultra Trasero" class="thumb-img" onclick="cambiarImagen('mainImgS25', this.src)">
+                    </div>
+                </div>
+                <h3 class="product-title">Samsung Galaxy S25 Ultra (512GB)</h3>
+                <p class="product-desc">Nuevo diseño insignia con procesador Snapdragon de última generación, Galaxy AI avanzado y acabado Titanium.</p>
+                <div class="product-price-main">
+                    <span>Precio:</span>
+                    <span>$2.899.990 COP</span>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-card" onclick="agregarAlCarrito('Samsung Galaxy S25 Ultra (512GB)', 2899990)">🛒 Agregar al Carrito</button>
+                    <button class="btn btn-whatsapp btn-card" onclick="comprarDirectoWhatsApp('Samsung Galaxy S25 Ultra (512GB)', 2899990)">💬 Comprar por WhatsApp</button>
+                </div>
+            </div>
+
+            <!-- 8. SAMSUNG GALAXY S24 ULTRA -->
+            <div class="product-card" data-category="samsung">
+                <div class="card-header-info">
+                    <span class="product-badge">Smartphone Alta Gama</span>
+                    <span class="price-tag">$2.350.000</span>
+                </div>
+                <div class="stock-tag"><span class="stock-dot"></span> 12GB | 512GB - Cajas Originales</div>
+                <div class="gallery-container">
+                    <img id="mainImgS24" src="s26.jpeg" alt="Samsung Galaxy S24 Ultra" class="product-main-img" onerror="this.onerror=null; this.src='s24-ultra.jpeg';">
+                    <div class="gallery-thumbs">
+                        <img src="s26.jpeg" alt="S24 Ultra Cajas" class="thumb-img active" onclick="cambiarImagen('mainImgS24', this.src)">
+                        <img src="s24-ultra.jpeg" alt="S24 Ultra Detalle" class="thumb-img" onclick="cambiarImagen('mainImgS24', this.src)">
+                    </div>
+                </div>
+                <h3 class="product-title">Samsung Galaxy S24 Ultra (512GB)</h3>
+                <p class="product-desc">Sistema de cámaras profesional de 200 MP, pantalla Dynamic AMOLED 2X, S Pen integrado y Snapdragon 8 Gen 3.</p>
+                <div class="product-price-main">
+                    <span>Precio:</span>
+                    <span>$2.350.000 COP</span>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-card" onclick="agregarAlCarrito('Samsung Galaxy S24 Ultra (512GB)', 2350000)">🛒 Agregar al Carrito</button>
+                    <button class="btn btn-whatsapp btn-card" onclick="comprarDirectoWhatsApp('Samsung Galaxy S24 Ultra (512GB)', 2350000)">💬 Comprar por WhatsApp</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Preguntas Frecuentes (FAQ) -->
+    <section class="faq-section" id="faq">
+        <h2 class="section-title">Preguntas <span>Frecuentes</span></h2>
+        <div class="faq-container">
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">¿Los productos tienen garantía? <span>+</span></div>
+                <div class="faq-answer">Sí, todos nuestros dispositivos cuentan con garantía directa de tienda y cobertura total contra defectos de fábrica.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">¿Realizan envíos a todo el país? <span>+</span></div>
+                <div class="faq-answer">Hacemos envíos seguros y asegurados a cualquier ciudad de Colombia a través de transportadoras aliadas.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">¿Qué métodos de pago reciben? <span>+</span></div>
+                <div class="faq-answer">Aceptamos transferencias bancarias (Bancolombia, Nequi, Daviplata), efectivo en punto de entrega y tarjetas.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section class="contact-section" id="contacto">
+        <h2 class="section-title">Líneas de <span>Contacto</span></h2>
+        <div class="contact-cards">
+            <div class="contact-card">
+                <h4>📱 WhatsApp / Teléfono</h4>
+                <a href="https://wa.me/573243964628?text=Hola%20Digital%20Play" target="_blank">+57 324 396 4629</a>
+            </div>
+            <div class="contact-card">
+                <h4>📸 Instagram</h4>
+                <a href="https://www.instagram.com/digitalplay__oficial?igsh=cjZ1bnY5dDB4bGNu/" target="_blank">@digitalplay__oficial</a>
+            </div>
+            <div class="contact-card">
+                <h4>📘 Facebook</h4>
+                <a href="https://www.facebook.com/share/1A1p1HTkcv/" target="_blank">Digital Play Oficial</a>
+            </div>
+            <div class="contact-card">
+                <h4>✉️ Correo Electrónico</h4>
+                <a href="mailto:digitalplayoficial0@gmail.com">digitalplayoficial0@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer>
+        <p>&copy; 2026 Digital Play. Tecnología a tu alcance. Todos los derechos reservados.</p>
+        <div class="social-links-footer">
+            <a href="https://www.instagram.com/digitalplay__oficial?igsh=cjZ1bnY5dDB4bGNu/" target="_blank">Instagram</a> | 
+            <a href="https://www.facebook.com/share/1A1p1HTkcv/" target="_blank">Facebook</a> | 
+            <a href="https://wa.me/573243964629" target="_blank">WhatsApp</a>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <div class="floating-whatsapp-container">
+        <span class="whatsapp-label">¿Dudas? Escríbenos</span>
+        <a href="https://wa.me/573243964629?text=Hola%20Digital%20Play,%20quisiera%20más%20información" class="floating-whatsapp" target="_blank" title="Escríbenos por WhatsApp">
+            💬
+        </a>
+    </div>
+
+    <!-- LÓGICA JAVASCRIPT REAL DEL CARRITO Y WHATSAPP -->
+    <script>
+        const NUMERO_WHATSAPP = "573243964629";
+        let carrito = JSON.parse(localStorage.getItem('digitalplay_cart')) || [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            actualizarContadorCarrito();
+        });
+
+        function cambiarImagen(idMain, nuevaRuta) {
+            const mainImg = document.getElementById(idMain);
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = nuevaRuta;
+                mainImg.style.opacity = '1';
+            }, 150);
+        }
+
+        /* MANEJO DEL CARRITO */
+        function agregarAlCarrito(nombre, precio) {
+            const index = carrito.findIndex(item => item.nombre === nombre);
+            if (index !== -1) {
+                carrito[index].cantidad += 1;
+            } else {
+                carrito.push({ nombre, precio, cantidad: 1 });
+            }
+            guardarCarrito();
+            actualizarContadorCarrito();
+            alert(`¡${nombre} se agregó al carrito!`);
+        }
+
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            guardarCarrito();
+            renderizarModalCarrito();
+            actualizarContadorCarrito();
+        }
+
+        function guardarCarrito() {
+            localStorage.setItem('digitalplay_cart', JSON.stringify(carrito));
+        }
+
+        function actualizarContadorCarrito() {
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            document.getElementById('cartCount').innerText = totalItems;
+        }
+
+        function abrirCarrito() {
+            renderizarModalCarrito();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function cerrarCarrito() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function renderizarModalCarrito() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalSpan = document.getElementById('cartTotalAmount');
+            container.innerHTML = '';
+            
+            if (carrito.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center;">El carrito está vacío.</p>';
+                totalSpan.innerText = '$0 COP';
+                return;
+            }
+
+            let total = 0;
+            carrito.forEach((item, index) => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.nombre}</strong><br>
+                            <small style="color: var(--text-muted);">${item.cantidad} x $${item.precio.toLocaleString('es-CO')}</small>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span>$${subtotal.toLocaleString('es-CO')}</span>
+                            <button onclick="eliminarDelCarrito(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            totalSpan.innerText = `$${total.toLocaleString('es-CO')} COP`;
+        }
+
+        /* ENVÍO AUTOMÁTICO A WHATSAPP */
+        function comprarDirectoWhatsApp(nombre, precio) {
+            const texto = `Hola Digital Play, estoy interesado en comprar:%0A- *${nombre}* ($${precio.toLocaleString('es-CO')} COP)%0A%0A¿Me brindan más información sobre el pago y envío?`;
+            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`, '_blank');
+        }
+
+        function enviarPedidoCompletoWhatsApp() {
+            if (carrito.length === 0) {
+                alert("Tu carrito está vacío.");
+                return;
+            }
+
+            let texto = "Hola Digital Play, me gustaría realizar el siguiente pedido:%0A%0A";
+            let total = 0;
+
+            carrito.forEach(item => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                texto += `• *${item.nombre}* (Cant: ${item.cantidad}) - $${subtotal.toLocaleString('es-CO')}%0A`;
+            });
+
+            texto += `%0A*Total a pagar:* $${total.toLocaleString('es-CO')} COP%0A%0AQuedo atento a las instrucciones de pago.`;
+            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${texto}`, '_blank');
+        }
+
+        /* FILTRADO Y FAQ */
+        function filtrarProductos(categoria, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                const cardCategories = card.getAttribute('data-category').split(' ');
+                if (categoria === 'todos' || cardCategories.includes(categoria)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleFaq(item) {
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.faq-question span');
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.innerText = '+';
+            } else {
+                answer.style.display = 'block';
+                icon.innerText = '-';
+            }
+        }
+    </script>
+</body>
+</html>
